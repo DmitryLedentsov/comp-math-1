@@ -12,7 +12,7 @@ import org.junit.jupiter.api.DisplayName;
 class AppTest {
     @DisplayName("test app has a greeting")
     @Test void appHasAGreeting() {
-        App classUnderTest = new App();
+        App classUnderTest = App.getInstanse();
         //assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
         
     }

@@ -1,0 +1,24 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "gradle",
+			"id": "c:\\Users\\leden\\OneDrive\\ITMO\\sem_4\\ВЫЧМАТ\\лаба 1\\lab1app:runapp",
+			"script": "app:run",
+			"description": "Runs this project as a JVM application",
+			"group": "application",
+			"project": "app",
+			"buildFile": "C:\\Users\\leden\\OneDrive\\ITMO\\sem_4\\ВЫЧМАТ\\лаба 1\\lab1\\app\\build.gradle",
+			"rootProject": "lab1",
+			"projectFolder": "c:\\Users\\leden\\OneDrive\\ITMO\\sem_4\\ВЫЧМАТ\\лаба 1\\lab1",
+			"workspaceFolder": "c:\\Users\\leden\\OneDrive\\ITMO\\sem_4\\ВЫЧМАТ\\лаба 1\\lab1",
+			"args": "",
+			"javaDebug": false,
+			"problemMatcher": [
+				"$gradle"
+			],
+			"label": "gradle: app:run",
+		}
+		
+	]
+}

@@ -1,10 +1,11 @@
 package lab1.logic;
 
+import lab1.exceptions.VectorAndMatixDimensionDiffer;
 import lombok.Getter;
 import lombok.Setter;
 
 public class Matrix {
-    final static int MAX_DIMENSION = 20;
+    public final static int MAX_DIMENSION = 20;
     @Getter
     private double[][] matrix;
     @Getter
@@ -14,7 +15,7 @@ public class Matrix {
     private String name;
     public Matrix(int d) {
         dimension = d;
-        if(dimension>MAX_DIMENSION) throw new IllegalArgumentException("Максимальная размерность матрицы " + MAX_DIMENSION);
+        if(dimension>MAX_DIMENSION) throw new IllegalArgumentException("Max matrix dimension is " + MAX_DIMENSION);
         this.matrix = new double[dimension][dimension];
     }
 
@@ -23,10 +24,17 @@ public class Matrix {
         this.matrix[row][column] = value;
     }
     public void setRaw(int row, double[] values) {
-        if(values.length!=dimension) throw new IllegalArgumentException("Размерность вектора не совпадает с размерностью матрицы");
+        if(values.length!=dimension) throw new VectorAndMatixDimensionDiffer();
         this.matrix[row] = values;
     }
+    public void setRaw(int row, Vector values) {
+        if(values.getDimension()!=dimension) throw new VectorAndMatixDimensionDiffer();
+        this.matrix[row] = values.getData();
+    }
 
+    public double[][] getData(){
+        return this.matrix;
+    }
     public double getElement(int column, int row) {
         return this.matrix[row][column];
     }

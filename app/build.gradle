@@ -10,10 +10,12 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
  
 }
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
+
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -28,6 +30,10 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.4.2")
     // This dependency is used by the application.
 
+    implementation 'com.indvd00m.ascii.render:ascii-render:2.2.0'
+    implementation 'com.acidmanic:console-tools:1.0.0'
+    implementation 'com.diogonunes:JColor:5.0.1'
+
 
 
 
@@ -40,21 +46,29 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'lab1.App'
-    mainClassName = 'lab1.App'
+    mainClass = 'lab1.Main'
+    mainClassName = 'lab1.Main'
 }
 
+java {
+
+    targetCompatibility = 17
+}
 run {
     standardInput = System.in
 }
-run.standardInput = System.in
 
 jar {
     manifest {
-        attributes 'Main-Class': 'lab1.App'
+        attributes 'Main-Class': 'lab1.Main'
     }
 }
 
+shadowJar {
+    archiveBaseName.set('app')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+}
 /*
 test {
     // Use JUnit Platform for unit tests.
