@@ -37,5 +37,13 @@ public class Vector implements Cloneable{
         v.vector = this.vector.clone();
         return v;
     }
+    @Override 
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < dimension; i++) {
+            s += vector[i] + "\t";
+        }
+        return s;
+    }
 
 }

@@ -23,6 +23,7 @@ public class App {
         }
         return instanse;
     }
+    
 
     @Getter @Setter
     private InputManager in;
@@ -59,7 +60,7 @@ public class App {
     public void start(){
        
         
-        running = true;
+        setRunning(true);
         printGreetings();
         test();
         while (running) {
@@ -80,11 +81,17 @@ public class App {
             stop();
             return;
         }
-        if(cmd == 1) solver.readFromConsole();
+        if(cmd == 1) {
+            solver.readFromConsole();
+            solver.getSystem().print();
+            solver.solve();
+            out.print("\nРешение системы имеет вид: \n\n" + solver.getSolution() + "\n");
+            
+        }
         else if(cmd == 2) {
             String path = in.readPath();
         }
-        solver.getSystem().print();
+        
    
         
     }
