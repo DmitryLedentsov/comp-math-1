@@ -32,6 +32,12 @@ public class Vector implements Cloneable{
         System.out.println();
     }
 
+    void swapElements(int i, int j) {
+        double tmp = vector[i];
+        vector[i] = vector[j];
+        vector[j] = tmp;
+    }
+    @Override
     public Vector clone() {
         Vector v = new Vector(this.dimension);
         v.vector = this.vector.clone();
@@ -45,5 +51,6 @@ public class Vector implements Cloneable{
         }
         return s;
     }
+
 
 }

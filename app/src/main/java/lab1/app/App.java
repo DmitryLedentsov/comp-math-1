@@ -32,9 +32,12 @@ public class App {
 
     @Getter @Setter
     private boolean running;
+    @Getter 
+    private Solver solver;
     private App() {
         out = new ConsoleOutputManager();
         in = new ConsoleInputManager();
+        solver = new Solver();
     }
 
     public void printGreetings() {
@@ -56,6 +59,10 @@ public class App {
         //system.solve();
 
         system.print();
+        solver.setSystem(system);
+        solver.solve();
+        out.print("\nПуть решения: \n\n" + solver.getSolutionWay() + "\n");
+        out.print("\nРешение системы имеет вид: \n\n" + solver.getSolution() + "\n");
     }
     public void start(){
        
@@ -73,6 +80,12 @@ public class App {
 
         solver.getSolution().print();*/
     }
+    void printSolution(){
+        solver.getSystem().print();
+        solver.solve();
+        out.print("\nПуть решения: \n\n" + solver.getSolutionWay() + "\n");
+        out.print("\nРешение системы имеет вид: \n\n" + solver.getSolution() + "\n");
+    }
 
     public void run(){
         int cmd = in.readCommand();
@@ -83,13 +96,17 @@ public class App {
         }
         if(cmd == 1) {
             solver.readFromConsole();
-            solver.getSystem().print();
-            solver.solve();
-            out.print("\nРешение системы имеет вид: \n\n" + solver.getSolution() + "\n");
+            printSolution();
             
         }
         else if(cmd == 2) {
             String path = in.readPath();
+            try {
+                solver.readFromFile(path);
+                printSolution();
+            } catch (Exception e) {
+                out.print("Ошибка при чтении файла: " + e.getMessage());
+            }
         }
         
    

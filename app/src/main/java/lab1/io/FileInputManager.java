@@ -6,14 +6,13 @@ import java.util.Scanner;
 
 public class FileInputManager  extends InputManagerImpl{
     String path;
-    public FileInputManager(String path) {
-        super(new Scanner(new InputStream() {
-            @Override
-            public int read() {
-                return 0;
-            }
-        }));
+    public FileInputManager(String path) throws Exception {
+        
+        super(new Scanner(new File(path)));
+       
         this.path = path;
 
     }
+
+    
 }

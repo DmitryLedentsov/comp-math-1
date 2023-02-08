@@ -9,7 +9,7 @@ import lab1.logic.Matrix;
 import lab1.logic.Vector;
 
 public class InputManagerImpl implements InputManager{
-    private Scanner scanner;
+    protected Scanner scanner;
     protected int line;
     public InputManagerImpl(Scanner s) {
         scanner = s;
@@ -27,44 +27,42 @@ public class InputManagerImpl implements InputManager{
     public void close() {
         scanner.close();
     }
+    
+
+
+
+
+
+
+
     public int readDimension() {
-       
-        return new Question<Integer> ("Введите размерность: ", ()->{
-            try{
-                int d = Integer.parseInt(scanner.nextLine().trim());
-                if(d < 1)
-                    throw new IllegalArgumentException("Размерность матрицы не может быть меньше 1");
-                else if (d > Matrix.MAX_DIMENSION)
-                    throw new IllegalArgumentException("Размерность матрицы не может быть больше " + Matrix.MAX_DIMENSION);
-                return d;
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Неверный формат размерности матрицы");
-            }
-     
-        }).getAnswer();
+        try{
+            int d = Integer.parseInt(scanner.nextLine().trim());
+            if(d < 1)
+                throw new IllegalArgumentException("Размерность матрицы не может быть меньше 1");
+            else if (d > Matrix.MAX_DIMENSION)
+                throw new IllegalArgumentException("Размерность матрицы не может быть больше " + Matrix.MAX_DIMENSION);
+            return d;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Неверный формат размерности матрицы");
+        }
     }
 
     public double[] readEquation(int d){
-       
+        String[] input = scanner.nextLine().split(" ");
+        if(input.length != d + 1) {
+            throw new IllegalArgumentException("Неверное количество элементов в уравнении");
+        }
+        double[] equation = new double[input.length];
+        for (int i = 0; i < input.length; i++) {
         
-        Question<double[]> q = new Question<double[]>(() -> {
-            App.getInstanse().getOut().add("уравнение " + line + ": ");
-            String[] input = scanner.nextLine().split(" ");
-            if(input.length != d + 1) {
-                throw new IllegalArgumentException("Неверное количество элементов в уравнении");
+            try{
+            equation[i] = Double.parseDouble(input[i]);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Неверный формат элемента уравнения " + input[i]);
             }
-            double[] equation = new double[input.length];
-            for (int i = 0; i < input.length; i++) {
-            
-                try{
-                equation[i] = Double.parseDouble(input[i]);
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException("Неверный формат элемента уравнения " + input[i]);
-                }
-            }
-            return equation;
-        });
-        return q.getAnswer();
+        }
+        return equation;
     }
     
     public LinearSystem readLinearSystem() {
@@ -85,26 +83,22 @@ public class InputManagerImpl implements InputManager{
         return new LinearSystem(A, B);
     }
 
-
     public int readCommand() {
-        return new Question<>("ОПЦИИ:\nчтобы ввести с клавиатуры введите 1, \nчтобы ввести из файла введите 2, \nчтобы выйти введите 3:\n", ()->{
-            try{
-                int command = Integer.parseInt(scanner.nextLine().trim());
-                if(command < 1 || command > 3)
-                    throw new IllegalArgumentException("Неверный формат команды");
-                return command;
-            } catch (NumberFormatException e) {
+        try{
+            int command = Integer.parseInt(scanner.nextLine().trim());
+            if(command < 1 || command > 3)
                 throw new IllegalArgumentException("Неверный формат команды");
-            }
-        }).getAnswer();
+            return command;
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Неверный формат команды");
+        }
+         
     
     }
     public String readPath() {
-        return new Question<>("Введите имя файла", ()->{
-            String fileName = scanner.nextLine().trim();
-            if(fileName.isEmpty())
-                throw new IllegalArgumentException("Имя файла не может быть пустым");
-            return fileName;
-        }).getAnswer();
+        String fileName = scanner.nextLine().trim();
+        if(fileName.isEmpty())
+            throw new IllegalArgumentException("Имя файла не может быть пустым");
+        return fileName;
     }
 }

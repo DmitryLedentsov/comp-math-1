@@ -51,6 +51,13 @@ public class Matrix implements Cloneable{
             System.out.println();
         }
     }
+
+    void swapElements(int x1, int y1, int x2, int y2) {
+        double tmp = matrix[y1][x1];
+        matrix[y1][x1] = matrix[y2][x2];
+        matrix[y2][x2] = tmp;
+    }
+    @Override
     public Matrix clone(){
         Matrix m = new Matrix(this.dimension);
         m.matrix = Arrays.stream(matrix).map(double[]::clone).toArray(double[][]::new);
