@@ -4,6 +4,9 @@
 package lab1;
 
 import org.junit.jupiter.api.Test;
+
+import lab1.app.App;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;

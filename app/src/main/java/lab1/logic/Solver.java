@@ -3,45 +3,54 @@ package lab1.logic;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import lab1.app.App;
 import lab1.io.Question;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Solver {
-    private Matrix A;
-    private Vector B;
-    private int n;
+    @Getter 
+    private LinearSystem system;
+
+    @Getter
+    private Vector solution;
+    @Getter
+    private Vector errors;
+
+
     Scanner scanner = new Scanner(System.in);
     public Solver() {
         scanner.useDelimiter("/n");
     }
-    public Solver(Matrix A, Vector B) {
-        this.A = A;
-        this.B = B;
-        n = A.getDimension();
-        if(n!=B.getDimension()) throw new IllegalArgumentException("Размерность матрицы не совпадает с размерностью вектора");
 
+    public Solver(LinearSystem s) {
+        setSystem(s);
     }
+
+    public void setSystem(LinearSystem s) {
+        system = s;
+        errors = new Vector(s.getDimension());
+        solution = new Vector(s.getDimension());
+    }
+
     public void readFromConsole() {
         
         
-        System.out.print("Введите размерность матрицы: ");
-        n = Integer.parseInt(scanner.nextLine().trim());
-        A = new Matrix(n);
-        B = new Vector(n);
+        system = App.getInstanse().getIn().readLinearSystem();
+    }
+    public void readFromFile(String path) {
+       // system = new FileIn;
+    }
 
-        for (int i = 0; i < n; i++) {
-            System.out.println("Введите левую часть " + (i+1) + " системы: ");
-            String[] line = scanner.nextLine().split(" ");
-            A.setRaw (i, Arrays.stream(line).
-                    mapToDouble(Double::parseDouble).
-                    toArray());
-            System.out.println("Введите правую часть " + (i+1) + " системы: ");
-            B.setElement(i,  Double.parseDouble(scanner.nextLine().trim()));
+    public void solve(){
 
-            A.print();
-            B.print();
+    }
+
+    public void printSolution() {
+        System.out.println("Решение системы имеет вид:\n");
+        for (int i = 0; i < system.getDimension(); i++) {
+            System.out.print(solution.getElement(i) + "\t");
         }
-
-
-        scanner.close();
+        System.out.println();
     }
 }

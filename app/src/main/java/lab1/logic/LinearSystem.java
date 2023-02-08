@@ -2,14 +2,13 @@ package lab1.logic;
 
 import lombok.Getter;
 import lab1.exceptions.*;
-public class LinearSystem {
+public class LinearSystem implements Cloneable{
     
     @Getter
     private final Matrix coefficients;
     @Getter
     private final Vector freeMembers;
-    @Getter
-    private Vector solution;
+  
     @Getter
     private final int dimension;
     public LinearSystem(Matrix coefficients, Vector freeMembers) {
@@ -18,7 +17,7 @@ public class LinearSystem {
         this.dimension = coefficients.getDimension();
         if(freeMembers.getDimension()!=dimension) throw new VectorAndMatixDimensionDiffer();
     }
-    public void solve() {
+    /*public void solve() {
         double[][] matrix = coefficients.getData();
         double[] vector = freeMembers.getData();
         double[] solution = new double[dimension];
@@ -60,7 +59,7 @@ public class LinearSystem {
         }
         this.solution = new Vector(dimension);
     }
-
+    */
     public static LinearSystem of(int dimension, double[] data) {
         if(data.length!=dimension*dimension+dimension) throw new IllegalArgumentException("Неверная размерность массива данных");
         Matrix coefficients = new Matrix(dimension);
@@ -84,12 +83,11 @@ public class LinearSystem {
             System.out.print("|\t" + freeMembers.getElement(i) + "\n");
         }
     }
-    public void printSolution() {
-        System.out.println("Решение системы имеет вид:\n");
-        for (int i = 0; i < dimension; i++) {
-            System.out.print(solution.getElement(i) + "\t");
-        }
-        System.out.println();
+    
+
+    public LinearSystem clone() {
+        LinearSystem ls = new LinearSystem(this.coefficients.clone(), this.freeMembers.clone());
+        return ls;
     }
 
 

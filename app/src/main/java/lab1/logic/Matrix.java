@@ -1,10 +1,12 @@
 package lab1.logic;
 
+import java.util.Arrays;
+
 import lab1.exceptions.VectorAndMatixDimensionDiffer;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Matrix {
+public class Matrix implements Cloneable{
     public final static int MAX_DIMENSION = 20;
     @Getter
     private double[][] matrix;
@@ -20,8 +22,8 @@ public class Matrix {
     }
 
 
-    public void setElement(int column, int row, double value) {
-        this.matrix[row][column] = value;
+    public void setElement(int x, int y, double value) {
+        this.matrix[y][x] = value;
     }
     public void setRaw(int row, double[] values) {
         if(values.length!=dimension) throw new VectorAndMatixDimensionDiffer();
@@ -49,7 +51,13 @@ public class Matrix {
             System.out.println();
         }
     }
+    public Matrix clone(){
+        Matrix m = new Matrix(this.dimension);
+        m.matrix = Arrays.stream(matrix).map(double[]::clone).toArray(double[][]::new);
+        return m;
+    }
  
+
 
     
 }

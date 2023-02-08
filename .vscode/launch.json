@@ -10,8 +10,8 @@
             "request": "launch",
             "mainClass": "lab1.Main",
             "projectName": "app"
-        },
-        /*{
+        }
+        /*,{
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",

@@ -3,7 +3,7 @@ package lab1.logic;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Vector {
+public class Vector implements Cloneable{
     public final static int MAX_DIMENSION = 20;
     private double[] vector;
     @Getter
@@ -30,6 +30,12 @@ public class Vector {
             System.out.print(vector[i] + "\t");
         }
         System.out.println();
+    }
+
+    public Vector clone() {
+        Vector v = new Vector(this.dimension);
+        v.vector = this.vector.clone();
+        return v;
     }
 
 }
