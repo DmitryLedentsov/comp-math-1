@@ -76,14 +76,20 @@ public class LinearSystem implements Cloneable{
 
     public void print() {
         System.out.println("Система имеет вид:\n");
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                System.out.print(coefficients.getElement(i, j) + "\t");
-            }
-            System.out.print("|\t" + freeMembers.getElement(i) + "\n");
-        }
+        System.out.println(this.toString());
     }
     
+    @Override 
+    public String toString(){
+        String s = "";
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                s += coefficients.getElement(i, j) + "\t";
+            }
+            s += "|\t" + freeMembers.getElement(i) + "\n";
+        }
+        return s;
+    }
 
     public LinearSystem clone() {
         LinearSystem ls = new LinearSystem(this.coefficients.clone(), this.freeMembers.clone());
