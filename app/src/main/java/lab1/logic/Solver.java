@@ -43,7 +43,7 @@ public class Solver {
     }
 
     public void solve(){
-
+        
     }
 
     public void printSolution() {
