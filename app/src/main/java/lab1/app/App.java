@@ -5,8 +5,12 @@ package lab1.app;
 
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import lab1.io.ConsoleInputManager;
 import lab1.io.ConsoleOutputManager;
+import lab1.io.FileInputManager;
 import lab1.io.InputManager;
 import lab1.io.OutputManager;
 import lab1.logic.LinearSystem;
@@ -51,11 +55,11 @@ public class App {
     }
 
     void test(){
-        LinearSystem system = LinearSystem.of(3, new double[]{
+        LinearSystem system = LinearSystem.of(3, 
             1,2,1,8,
             2,1,2,10,
             3,3,1,12
-        } );
+        );
         //system.solve();
 
         system.print();
@@ -89,24 +93,35 @@ public class App {
 
     public void run(){
         int cmd = in.readCommand();
-        Solver solver =  new Solver();
+      
         if(cmd == 3) {
             stop();
             return;
         }
         if(cmd == 1) {
-            solver.readFromConsole();
+            LinearSystem system = in.readLinearSystem();
+            solver.setSystem(system);
             printSolution();
             
         }
         else if(cmd == 2) {
             String path = in.readPath();
-            try {
-                solver.readFromFile(path);
+            try (InputManager fileInput = new FileInputManager(path)){
+                LinearSystem system = fileInput.readLinearSystem();
+                solver.setSystem(system);
                 printSolution();
-            } catch (Exception e) {
-                out.print("Ошибка при чтении файла: " + e.getMessage());
+            } catch(FileNotFoundException e) {
+                out.print("Файл "+ path + " не найден");
+            } catch (IOException e) {
+                out.print("Ошибка при чтении файла " + path);
             }
+            catch (IllegalArgumentException e) {
+                out.print("Данные в файле некорректны: " + path);
+            }
+            catch (Exception e) {
+                out.print("Неизвестная ошибка");
+            }
+
         }
         
    

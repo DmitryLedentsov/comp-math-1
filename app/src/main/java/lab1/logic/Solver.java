@@ -40,14 +40,7 @@ public class Solver {
         solutionWay = new SolutionWay();
     }
 
-    public void readFromConsole() {
-        
-        
-        system = App.getInstanse().getIn().readLinearSystem();
-    }
-    public void readFromFile(String path) {
-       // system = new FileIn;
-    }
+    
 
     public void chooseMainElement(){
         int n = system.getDimension();

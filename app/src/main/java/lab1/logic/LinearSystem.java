@@ -17,50 +17,8 @@ public class LinearSystem implements Cloneable{
         this.dimension = coefficients.getDimension();
         if(freeMembers.getDimension()!=dimension) throw new VectorAndMatixDimensionDiffer();
     }
-    /*public void solve() {
-        double[][] matrix = coefficients.getData();
-        double[] vector = freeMembers.getData();
-        double[] solution = new double[dimension];
-        for (int i = 0; i < dimension; i++) {
-            double max = matrix[i][i];
-            int maxRow = i;
-            for (int j = i+1; j < dimension; j++) {
-                if(Math.abs(matrix[j][i])>Math.abs(max)) {
-                    max = matrix[j][i];
-                    maxRow = j;
-                }
-            }
-            for (int j = 0; j < dimension; j++) {
-                double temp = matrix[maxRow][j];
-                matrix[maxRow][j] = matrix[i][j];
-                matrix[i][j] = temp;
-            }
-            double temp = vector[maxRow];
-            vector[maxRow] = vector[i];
-            vector[i] = temp;
-            for (int j = i+1; j < dimension; j++) {
-                double c = -matrix[j][i]/matrix[i][i];
-                for (int k = i; k < dimension; k++) {
-                    if(i==k) {
-                        matrix[j][k] = 0;
-                    } else {
-                        matrix[j][k] += c*matrix[i][k];
-                    }
-                }
-                vector[j] += c*vector[i];
-            }
-        }
-        for (int i = dimension-1; i >= 0; i--) {
-            solution[i] = vector[i];
-            for (int j = i+1; j < dimension; j++) {
-                solution[i] -= matrix[i][j]*solution[j];
-            }
-            solution[i] /= matrix[i][i];
-        }
-        this.solution = new Vector(dimension);
-    }
-    */
-    public static LinearSystem of(int dimension, double[] data) {
+    
+    public static LinearSystem of(int dimension, double... data) {
         if(data.length!=dimension*dimension+dimension) throw new IllegalArgumentException("Неверная размерность массива данных");
         Matrix coefficients = new Matrix(dimension);
         Vector freeMembers = new Vector(dimension);

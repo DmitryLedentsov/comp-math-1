@@ -25,29 +25,17 @@ public class ConsoleInputManager extends InputManagerImpl{
     }
     
     public LinearSystem readLinearSystem() {
-        line = 1;
-        int dimension = readDimension();
-        Matrix A = new Matrix(dimension);
-        Vector B = new Vector(dimension);
+        
         System.out.println("Введите систему в виде матрицы коэффициентов и столбца свободных членов:");
-        for (int i = 0; i < dimension; i++) {
-            double[] equation = readEquation(dimension);
-            line++;
-            for (int j = 0; j < dimension; j++) {
-                A.setElement(i, j, equation[j]);
-            }
-            B.setElement(i, equation[dimension]);
-           
-        }
-        return new LinearSystem(A, B);
+        return super.readLinearSystem();
     }
 
 
     public int readCommand() {
-        return new Question<>("ОПЦИИ:\nчтобы ввести с клавиатуры введите 1, \nчтобы ввести из файла введите 2, \nчтобы выйти введите 3:\n", super::readCommand).getAnswer();
+        return new Question<>("\nОПЦИИ:\n\n -   чтобы ввести с клавиатуры введите 1, \n -   чтобы ввести из файла введите 2, \n -   чтобы выйти введите 3\n", super::readCommand).getAnswer();
     }
     public String readPath() {
-        return new Question<>("Введите имя файла", super::readPath).getAnswer();
+        return new Question<>("Введите имя файла: ", super::readPath).getAnswer();
     }
     
 }

@@ -37,7 +37,7 @@ public class InputManagerImpl implements InputManager{
 
     public int readDimension() {
         try{
-            int d = Integer.parseInt(scanner.nextLine().trim());
+            int d = Integer.parseInt(readLine());
             if(d < 1)
                 throw new IllegalArgumentException("Размерность матрицы не может быть меньше 1");
             else if (d > Matrix.MAX_DIMENSION)
@@ -70,7 +70,6 @@ public class InputManagerImpl implements InputManager{
         int dimension = readDimension();
         Matrix A = new Matrix(dimension);
         Vector B = new Vector(dimension);
-        System.out.println("Введите систему в виде матрицы коэффициентов и столбца свободных членов:");
         for (int i = 0; i < dimension; i++) {
             double[] equation = readEquation(dimension);
             line++;
@@ -85,7 +84,7 @@ public class InputManagerImpl implements InputManager{
 
     public int readCommand() {
         try{
-            int command = Integer.parseInt(scanner.nextLine().trim());
+            int command = Integer.parseInt(readLine());
             if(command < 1 || command > 3)
                 throw new IllegalArgumentException("Неверный формат команды");
             return command;
@@ -96,7 +95,7 @@ public class InputManagerImpl implements InputManager{
     
     }
     public String readPath() {
-        String fileName = scanner.nextLine().trim();
+        String fileName = readLine();
         if(fileName.isEmpty())
             throw new IllegalArgumentException("Имя файла не может быть пустым");
         return fileName;
