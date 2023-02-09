@@ -22,7 +22,7 @@ public class Matrix implements Cloneable{
     }
 
 
-    public void setElement(int x, int y, double value) {
+    public void set(int x, int y, double value) {
         this.matrix[y][x] = value;
     }
     public void setRaw(int row, double[] values) {
@@ -37,9 +37,55 @@ public class Matrix implements Cloneable{
     public double[][] getData(){
         return this.matrix;
     }
-    public double getElement(int column, int row) {
-        return this.matrix[row][column];
+    public double get(int x, int y) {
+        return this.matrix[y][x];
     }
+
+    public double getDeterminant(){
+        double result = 0;
+       
+		if (getDimension() == 1) {
+			result = matrix[0][0];
+			return result;
+		}
+		if (getDimension() == 2) {
+			result = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+			return result;
+		}
+		for (int i = 0; i < getDimension(); i++) {
+			/*Matrix tempMatrix = new Matrix(getDimension()- 1);
+            double[][] temp = tempMatrix.getData();
+			for (int j = 1; j < getDimension(); j++) {
+				for (int k = 0; k < getDimension(); k++) {
+
+					if (k < i) {
+
+						temp[j - 1][k] = matrix[j][k];
+					} else if (k > i) {
+						temp[j - 1][k - 1] = matrix[j][k];
+					}
+				}
+			}*/
+			result += get(i,0) * getAlgAddition(i,0) ;//* Math.pow(-1,  i) * tempMatrix.getDeterminant();
+		}
+		return result;
+    }
+    public double getAlgAddition(int i, int j){
+        return Math.pow(-1, i + j) * getMinor(i, j).getDeterminant();
+    }
+    public Matrix getMinor(int x, int y){
+        Matrix minor = new Matrix(getDimension() - 1);
+
+        for (int i = 0; i < getDimension(); i++){
+            for (int j = 0; j < getDimension(); j++){
+                if (i != x && j != y){
+                    minor.set(i < x ? i : i - 1, j < y ? j : j - 1, get(i, j));
+                }
+            }
+        }
+        return minor;
+    }
+
     public void print() {
 
         System.out.println("Матрица " + (name!=null?name:"") + " имеет следующий вид:\n");
@@ -52,10 +98,15 @@ public class Matrix implements Cloneable{
         }
     }
 
-    void swapElements(int x1, int y1, int x2, int y2) {
+    public void swapElements(int x1, int y1, int x2, int y2) {
         double tmp = matrix[y1][x1];
         matrix[y1][x1] = matrix[y2][x2];
         matrix[y2][x2] = tmp;
+    }
+    public void swapRaws(int y1, int y2) {
+        double[] tmp = matrix[y1];
+        matrix[y1] = matrix[y2];
+        matrix[y2] = tmp;
     }
     @Override
     public Matrix clone(){

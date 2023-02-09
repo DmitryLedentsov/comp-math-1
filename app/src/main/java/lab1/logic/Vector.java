@@ -15,10 +15,10 @@ public class Vector implements Cloneable{
         if(dimension>MAX_DIMENSION) throw new IllegalArgumentException("Max vector dimension is " + MAX_DIMENSION);
         this.vector = new double[dimension];
     }
-    public void setElement(int column, double value) {
+    public void set(int column, double value) {
         this.vector[column] = value;
     }
-    public double getElement(int column) {
+    public double get(int column) {
         return this.vector[column];
     }
     public double[] getData(){
@@ -32,7 +32,7 @@ public class Vector implements Cloneable{
         System.out.println();
     }
 
-    void swapElements(int i, int j) {
+    void swap(int i, int j) {
         double tmp = vector[i];
         vector[i] = vector[j];
         vector[j] = tmp;

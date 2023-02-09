@@ -17,6 +17,25 @@ public class LinearSystem implements Cloneable{
         this.dimension = coefficients.getDimension();
         if(freeMembers.getDimension()!=dimension) throw new VectorAndMatixDimensionDiffer();
     }
+/*/
+    private void SubRaw(int i1, int i2)
+    {
+        double c = coefficients.get(i2, i1) / coefficients.get(i1, i1);
+        //coefficients.set( i2, i1,0);
+        for (int j = i1 + 1; j < getDimension(); j++)
+        {
+            coefficients.set(i1, i2, c);(a.GetElement(i2, j) - c * a.GetElement(i1, j), i2, j);
+        }
+        b.SetElement(b.GetElement(i2, 0) - c * b.GetElement(i1, 0), i2, 0);
+    }
+
+    private  void SubAllRows(DoubleMatrix a, DoubleMatrix b, int i)
+    {
+        for (int j = i + 1; j < a.getN(); j++)
+        {
+            SubRaw(a, b, i, j);
+        }
+    }*/
     
     public static LinearSystem of(int dimension, double... data) {
         if(data.length!=dimension*dimension+dimension) throw new IllegalArgumentException("Неверная размерность массива данных");
@@ -25,9 +44,9 @@ public class LinearSystem implements Cloneable{
         for (int i = 0; i < dimension; i++) {
             int j=0;
             for (j = 0; j < dimension; j++) {
-                coefficients.setElement(i, j, data[i*(dimension+1)+j]);
+                coefficients.set(i, j, data[i*(dimension+1)+j]);
             }
-            freeMembers.setElement(i, data[(dimension+1)*i+j]);
+            freeMembers.set(i, data[(dimension+1)*i+j]);
         }
         return new LinearSystem(coefficients, freeMembers);
     }
@@ -42,12 +61,13 @@ public class LinearSystem implements Cloneable{
         String s = "";
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                s += coefficients.getElement(i, j) + "\t";
+                s += coefficients.get(i, j) + "\t";
             }
-            s += "|\t" + freeMembers.getElement(i) + "\n";
+            s += "|\t" + freeMembers.get(i) + "\n";
         }
         return s;
     }
+
 
     public LinearSystem clone() {
         LinearSystem ls = new LinearSystem(this.coefficients.clone(), this.freeMembers.clone());

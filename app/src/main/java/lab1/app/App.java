@@ -62,11 +62,9 @@ public class App {
         );
         //system.solve();
 
-        system.print();
+        
         solver.setSystem(system);
-        solver.solve();
-        out.print("\nПуть решения: \n\n" + solver.getSolutionWay() + "\n");
-        out.print("\nРешение системы имеет вид: \n\n" + solver.getSolution() + "\n");
+        printSolution();
     }
     public void start(){
        
@@ -86,8 +84,11 @@ public class App {
     }
     void printSolution(){
         solver.getSystem().print();
+        out.print("\n");
+        out.print("Детерминант: " + solver.getSystem().getCoefficients().getDeterminant() + "\n");
         solver.solve();
-        out.print("\nПуть решения: \n\n" + solver.getSolutionWay() + "\n");
+        out.print("Треугольная матрица: \n" + solver.getSystem() + "\n");
+        //out.print("\nПуть решения: \n\n" + solver.getSolutionWay() + "\n");
         out.print("\nРешение системы имеет вид: \n\n" + solver.getSolution() + "\n");
     }
 

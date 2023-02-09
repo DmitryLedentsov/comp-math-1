@@ -22,7 +22,7 @@ public class InputManagerImpl implements InputManager{
     }
 
     public String readLine() {
-        return scanner.nextLine();
+        return scanner.nextLine().stripLeading();
     }
     public void close() {
         scanner.close();
@@ -38,8 +38,8 @@ public class InputManagerImpl implements InputManager{
     public int readDimension() {
         try{
             int d = Integer.parseInt(readLine());
-            if(d < 1)
-                throw new IllegalArgumentException("Размерность матрицы не может быть меньше 1");
+            if(d <= 1)
+                throw new IllegalArgumentException("Размерность матрицы должна быть больше 1");
             else if (d > Matrix.MAX_DIMENSION)
                 throw new IllegalArgumentException("Размерность матрицы не может быть больше " + Matrix.MAX_DIMENSION);
             return d;
@@ -49,7 +49,7 @@ public class InputManagerImpl implements InputManager{
     }
 
     public double[] readEquation(int d){
-        String[] input = scanner.nextLine().split(" ");
+        String[] input = readLine().split(" ");
         if(input.length != d + 1) {
             throw new IllegalArgumentException("Неверное количество элементов в уравнении");
         }
@@ -74,9 +74,9 @@ public class InputManagerImpl implements InputManager{
             double[] equation = readEquation(dimension);
             line++;
             for (int j = 0; j < dimension; j++) {
-                A.setElement(i, j, equation[j]);
+                A.set(i, j, equation[j]);
             }
-            B.setElement(i, equation[dimension]);
+            B.set(i, equation[dimension]);
            
         }
         return new LinearSystem(A, B);
