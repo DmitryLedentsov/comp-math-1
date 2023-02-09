@@ -1,5 +1,6 @@
 package lab1.logic;
 
+import lab1.utils.DoubleFormatter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -47,7 +48,7 @@ public class Vector implements Cloneable{
     public String toString() {
         String s = "";
         for (int i = 0; i < dimension; i++) {
-            s += vector[i] + "\t";
+            s += DoubleFormatter.format(vector[i]) + "\t";
         }
         return s;
     }

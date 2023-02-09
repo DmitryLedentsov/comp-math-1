@@ -2,6 +2,7 @@ package lab1.logic;
 
 import lombok.Getter;
 import lab1.exceptions.*;
+import lab1.utils.DoubleFormatter;
 public class LinearSystem implements Cloneable{
     
     @Getter
@@ -61,10 +62,11 @@ public class LinearSystem implements Cloneable{
         String s = "";
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                s += coefficients.get(j,i) + "\t";
+                s += DoubleFormatter.format(coefficients.get(j,i)) + "\t";
             }
-            s += "|\t" + freeMembers.get(i) + "\n";
+            s += "|\t" + DoubleFormatter.format(freeMembers.get(i)) + "\n";
         }
+        if(s.endsWith("\n")) s = s.substring(0, s.length()-1);
         return s;
     }
 

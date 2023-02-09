@@ -75,23 +75,19 @@ public class App {
         while (running) {
             run();
         }
-        //solver.readFromConsole();
-
-
-        /*solver.solve();
-
-        solver.getSolution().print();*/
+  
     }
     void printSolution(){
-        solver.getSystem().print();
-        out.print("\n");
+        
+        out.print("Исходная истема имеет вид: \n" + solver.getSystem() + "\n");
         out.print("Детерминант: " + solver.getSystem().getCoefficients().getDeterminant() + "\n");
         solver.solve();
         //out.print(solver.getSolutionWay().getDescription());
         out.print("Треугольная матрица: \n" + solver.getSystem() + "\n");
         //out.print("\nПуть решения: \n\n" + solver.getSolutionWay() + "\n");
-        out.print("\nРешение системы имеет вид: \n\n" + solver.getSolution() + "\n");
-        out.print("\nВектор невязок: " + solver.getErrors() + "\n");
+
+        out.print("Решение системы имеет вид: \n" + solver.getSolution() + "\n");
+        out.print("Вектор невязок: \n" + solver.getErrors() + "\n");
     }
 
     public void run(){
