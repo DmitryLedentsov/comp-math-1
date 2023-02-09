@@ -86,17 +86,7 @@ public class Matrix implements Cloneable{
         return minor;
     }
 
-    public void print() {
-
-        System.out.println("Матрица " + (name!=null?name:"") + " имеет следующий вид:\n");
-
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                System.out.print(matrix[i][j] + "\t");
-            }
-            System.out.println();
-        }
-    }
+  
 
     public void swapElements(int x1, int y1, int x2, int y2) {
         double tmp = matrix[y1][x1];

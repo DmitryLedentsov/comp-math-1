@@ -135,13 +135,7 @@ public class Solver {
         
     }
 
-    public void printSolution() {
-        System.out.println("Решение системы имеет вид:\n");
-        for (int i = 0; i < system.getDimension(); i++) {
-            System.out.print(solution.get(i) + "\t");
-        }
-        System.out.println();
-    }
+
 
     @Data
     public class SolutionWay{

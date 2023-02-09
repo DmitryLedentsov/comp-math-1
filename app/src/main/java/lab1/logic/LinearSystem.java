@@ -18,25 +18,7 @@ public class LinearSystem implements Cloneable{
         this.dimension = coefficients.getDimension();
         if(freeMembers.getDimension()!=dimension) throw new VectorAndMatixDimensionDiffer();
     }
-/*/
-    private void SubRaw(int i1, int i2)
-    {
-        double c = coefficients.get(i2, i1) / coefficients.get(i1, i1);
-        //coefficients.set( i2, i1,0);
-        for (int j = i1 + 1; j < getDimension(); j++)
-        {
-            coefficients.set(i1, i2, c);(a.GetElement(i2, j) - c * a.GetElement(i1, j), i2, j);
-        }
-        b.SetElement(b.GetElement(i2, 0) - c * b.GetElement(i1, 0), i2, 0);
-    }
 
-    private  void SubAllRows(DoubleMatrix a, DoubleMatrix b, int i)
-    {
-        for (int j = i + 1; j < a.getN(); j++)
-        {
-            SubRaw(a, b, i, j);
-        }
-    }*/
     
     public static LinearSystem of(int dimension, double... data) {
         if(data.length!=dimension*dimension+dimension) throw new IllegalArgumentException("Неверная размерность массива данных");
@@ -52,10 +34,6 @@ public class LinearSystem implements Cloneable{
         return new LinearSystem(coefficients, freeMembers);
     }
 
-    public void print() {
-        System.out.println("Система имеет вид:\n");
-        System.out.println(this.toString());
-    }
     
     @Override 
     public String toString(){

@@ -25,13 +25,7 @@ public class Vector implements Cloneable{
     public double[] getData(){
         return this.vector;
     }
-    public void print() {
-        System.out.println("Вектор " + (name!=null?name:"") + " имеет следующий вид:\n");
-        for (int i = 0; i < dimension; i++) {
-            System.out.print(vector[i] + "\t");
-        }
-        System.out.println();
-    }
+ 
 
     void swap(int i, int j) {
         double tmp = vector[i];
