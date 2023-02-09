@@ -42,17 +42,19 @@ public class Solver {
 
     
     private boolean chooseMainElementAndChangeRawsOrder(int i){
-        double max = Math.abs(system.getCoefficients().get(i, i));
+        double max = Math.abs(system.getCoefficients().get(i,i));
         int maxIndex = i;
         for(int j=i+1; j<system.getDimension(); j++){
-            if(Math.abs(system.getCoefficients().get(i,j)) > max){
-                max = Math.abs(system.getCoefficients().get(i,j));
+            double current = system.getCoefficients().get(i,j);
+            if(current > max){
+                max = current;
                 maxIndex = j;
             }
         }
         if(maxIndex != i){
             system.getCoefficients().swapRaws(i, maxIndex);
             system.getFreeMembers().swap(i, maxIndex);
+            solutionWay.add("i= " + i + "макс элемент в столбце " + (i+1) + " находится в строке " + (maxIndex+1) + ", меняем строки местами");
             return true;
         }
         return false;
@@ -77,34 +79,59 @@ public class Solver {
             {
                 system.getCoefficients().set(j,k, system.getCoefficients().get(j,k) - c * system.getCoefficients().get(j,i));
             }
+            solutionWay.add("вычитаем из " + (k+1) + " строки " + (i+1) + " строку, умноженную на " + c);
             system.getFreeMembers().set(k, system.getFreeMembers().get(k) - c * system.getFreeMembers().get(i));
+
         }
     }
 
+    void findSolution(){
+        int count = 0;
+        int n = system.getDimension();
+        for (int i = n - 1; i >= 0; i--)
+        {
+            count++;
+            double s = 0;
+            for (int j = i + 1; j < system.getDimension(); j++)
+            {
+                s = s + system.getCoefficients().get(j,i) * solution.get(j);
+            }
+            solution.set(i, (system.getFreeMembers().get(i) - s) / system.getCoefficients().get(i, i));
+            solutionWay.add("\nШаг " + count + ", коэффициент: " + s + "\n" + solution);
+        }
+    }
  
+    void findErrors(){
+        for(int i = 0; i < system.getDimension(); i++){
+            double s = 0;
+            for(int j = 0; j < system.getDimension(); j++){
+                s += system.getCoefficients().get(i,j) * solution.get(j);
+            }
+            errors.set(i, s - system.getFreeMembers().get(i));
+        }
+    }
     public void solve(){
         solutionWay = new SolutionWay();
         solution = new Vector(system.getDimension());
         int n = system.getDimension();
         int k=0;
+
+        solutionWay.add("Прямой ход:");
         for ( int i = 0; i < n-1; i++)
         {
             if (chooseMainElementAndChangeRawsOrder(i))
             {
                 k++;
+                solutionWay.add("система с помененными строками\n" + system);
             }
             subAllRaws(i);
+            solutionWay.add("новая система: \n" + system);
         }
 
-        for (int i = n - 1; i >= 0; i--)
-        {
-            double s = 0;
-            for (int j = i + 1; j < n; j++)
-            {
-                s += system.getCoefficients().get(j,i) * solution.get(j);
-            }
-            solution.set(i, (system.getFreeMembers().get(i) - s) / system.getCoefficients().get(i, i));
-        }
+        solutionWay.add("Обратный ход:");
+
+        findSolution();
+        findErrors();
         
     }
 
@@ -118,8 +145,12 @@ public class Solver {
 
     @Data
     public class SolutionWay{
-        protected double max;
-        protected int maxX;
-        protected int maxY;
+        protected String description;
+        public SolutionWay(){
+            description = "";
+        }
+        public void add(String s){
+            description  += s + "\n";
+        }
     }
 }

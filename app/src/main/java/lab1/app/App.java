@@ -87,9 +87,11 @@ public class App {
         out.print("\n");
         out.print("Детерминант: " + solver.getSystem().getCoefficients().getDeterminant() + "\n");
         solver.solve();
+        //out.print(solver.getSolutionWay().getDescription());
         out.print("Треугольная матрица: \n" + solver.getSystem() + "\n");
         //out.print("\nПуть решения: \n\n" + solver.getSolutionWay() + "\n");
         out.print("\nРешение системы имеет вид: \n\n" + solver.getSolution() + "\n");
+        out.print("\nВектор невязок: " + solver.getErrors() + "\n");
     }
 
     public void run(){

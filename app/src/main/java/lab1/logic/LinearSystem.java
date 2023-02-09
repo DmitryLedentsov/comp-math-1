@@ -44,7 +44,7 @@ public class LinearSystem implements Cloneable{
         for (int i = 0; i < dimension; i++) {
             int j=0;
             for (j = 0; j < dimension; j++) {
-                coefficients.set(i, j, data[i*(dimension+1)+j]);
+                coefficients.set(j,i, data[i*(dimension+1)+j]);
             }
             freeMembers.set(i, data[(dimension+1)*i+j]);
         }
@@ -61,7 +61,7 @@ public class LinearSystem implements Cloneable{
         String s = "";
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                s += coefficients.get(i, j) + "\t";
+                s += coefficients.get(j,i) + "\t";
             }
             s += "|\t" + freeMembers.get(i) + "\n";
         }

@@ -74,7 +74,7 @@ public class InputManagerImpl implements InputManager{
             double[] equation = readEquation(dimension);
             line++;
             for (int j = 0; j < dimension; j++) {
-                A.set(i, j, equation[j]);
+                A.set(j,i, equation[j]);
             }
             B.set(i, equation[dimension]);
            
