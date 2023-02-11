@@ -54,7 +54,7 @@ public class Solver {
         if(maxIndex != i){
             system.getCoefficients().swapRaws(i, maxIndex);
             system.getFreeMembers().swap(i, maxIndex);
-            solutionWay.add("i= " + i + "макс элемент в столбце " + (i+1) + " находится в строке " + (maxIndex+1) + ", меняем строки местами");
+            solutionWay.add("\nмакс элемент в столбце " + (i+1) + " находится в строке " + (maxIndex+1) + ", меняем строки местами\n");
             return true;
         }
         return false;
@@ -79,7 +79,7 @@ public class Solver {
             {
                 system.getCoefficients().set(j,k, system.getCoefficients().get(j,k) - c * system.getCoefficients().get(j,i));
             }
-            solutionWay.add("вычитаем из " + (k+1) + " строки " + (i+1) + " строку, умноженную на " + c);
+            solutionWay.add("\nвычитаем из " + (k+1) + " строки " + (i+1) + " строку, умноженную на " + c + "\n");
             system.getFreeMembers().set(k, system.getFreeMembers().get(k) - c * system.getFreeMembers().get(i));
 
         }

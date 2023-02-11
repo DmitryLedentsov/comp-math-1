@@ -38,6 +38,8 @@ public class App {
     private boolean running;
     @Getter 
     private Solver solver;
+
+    
     private App() {
         out = new ConsoleOutputManager();
         in = new ConsoleInputManager();
@@ -71,15 +73,14 @@ public class App {
         
         setRunning(true);
         printGreetings();
-        test();
+        //test();
         while (running) {
             run();
         }
   
     }
     void printSolution(){
-        
-        out.print("Исходная истема имеет вид: \n" + solver.getSystem() + "\n");
+        out.print("Исходная система имеет вид: \n" + solver.getSystem() + "\n");
         out.print("Детерминант: " + solver.getSystem().getCoefficients().getDeterminant() + "\n");
         solver.solve();
         //out.print(solver.getSolutionWay().getDescription());
