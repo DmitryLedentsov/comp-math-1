@@ -55,19 +55,7 @@ public class App {
         
         
     }
-
-    void test(){
-        LinearSystem system = LinearSystem.of(3, 
-            1,2,1,8,
-            2,1,2,10,
-            3,3,1,12
-        );
-        //system.solve();
-
-        
-        solver.setSystem(system);
-        printSolution();
-    }
+    
     public void start(){
        
         

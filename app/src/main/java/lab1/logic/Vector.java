@@ -16,6 +16,11 @@ public class Vector implements Cloneable{
         if(dimension>MAX_DIMENSION) throw new IllegalArgumentException("Max vector dimension is " + MAX_DIMENSION);
         this.vector = new double[dimension];
     }
+    public static Vector of(double[] data){
+        Vector v = new Vector(data.length);
+        v.vector = data;
+        return v;
+    }
     public void set(int column, double value) {
         this.vector[column] = value;
     }

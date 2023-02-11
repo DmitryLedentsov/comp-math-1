@@ -21,6 +21,12 @@ public class Matrix implements Cloneable{
         this.matrix = new double[dimension][dimension];
     }
 
+    public static Matrix of(double[][] data){
+        if(data.length!=data[0].length) throw new IllegalArgumentException("Matrix must be square");
+        Matrix m = new Matrix(data.length);
+        m.matrix = data;
+        return m;
+    }
 
     public void set(int x, int y, double value) {
         this.matrix[y][x] = value;

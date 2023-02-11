@@ -6,6 +6,8 @@ package lab1;
 import org.junit.jupiter.api.Test;
 
 import lab1.app.App;
+import lab1.logic.LinearSystem;
+import lab1.logic.Solver;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +18,27 @@ class AppTest {
     @DisplayName("test app has a greeting")
     @Test void appHasAGreeting() {
         App classUnderTest = App.getInstanse();
+        
         //assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
         
+    }
+    @Test void testSolver(){
+        Solver solver = new Solver();
+        LinearSystemTest tests[] = new LinearSystemTest[]{
+            new LinearSystemTest(LinearSystem.of(3, 
+            1,2,1,8,
+            2,1,2,10,
+            3,3,1,12
+        ) , new double[]{1,2,3}),
+            
+        };
+        for(LinearSystemTest test : tests){
+            solver.setSystem(test.getSystem());
+            solver.solve();
+            double[] result = solver.getSolution().getData();
+            assertArrayEquals(test.getExpected(), result);
+        }
+
+
     }
 }
