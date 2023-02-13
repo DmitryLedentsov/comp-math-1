@@ -45,12 +45,21 @@ public class App {
         in = new ConsoleInputManager();
         solver = new Solver();
     }
+    void print_dimka(String text, int gap){
+        String d = "";
+        for(int i=0;i<gap;i++){
+            d=d + " ";
+        }
+        out.print(d + "__┌──┐__\n"+d+" (-■_■)\n"+d+" />  П    "+text+"   \n"+d+"    [X]");
+    }
 
     public void printGreetings() {
         /* Print Black Text on Red background */
         
         out.print("\n█▀▀ █░░█ █▀▀ ▀▀█▀▀ █▀▀ █▀▄▀█   █▀▀█ █▀▀   █░░ ░▀░ █▀▀▄ █▀▀ █▀▀█ █▀▀█ \n▀▀█ █▄▄█ ▀▀█ ░░█░░ █▀▀ █░▀░█   █░░█ █▀▀   █░░ ▀█▀ █░░█ █▀▀ █▄▄█ █▄▄▀ \n▀▀▀ ▄▄▄█ ▀▀▀ ░░▀░░ ▀▀▀ ▀░░░▀   ▀▀▀▀ ▀░░   ▀▀▀ ▀▀▀ ▀░░▀ ▀▀▀ ▀░░▀ ▀░▀▀ \n\n█▀▀ █▀▀█ █░░█ █▀▀█ ▀▀█▀▀ ░▀░ █▀▀█ █▀▀▄ █▀▀   █░█ ░▀░ █░░ █░░ █▀▀ █▀▀█ \n█▀▀ █░░█ █░░█ █▄▄█ ░░█░░ ▀█▀ █░░█ █░░█ ▀▀█   █▀▄ ▀█▀ █░░ █░░ █▀▀ █▄▄▀ \n▀▀▀ ▀▀▀█ ░▀▀▀ ▀░░▀ ░░▀░░ ▀▀▀ ▀▀▀▀ ▀░░▀ ▀▀▀   ▀░▀ ▀▀▀ ▀▀▀ ▀▀▀ ▀▀▀ ▀░▀▀");
-        out.print("\t \t \t \t \t \t \tby @dimka_228");
+
+        print_dimka("by @dimka_228",50);
+        //out.print("\t \t \t \t \t \t \tby @dimka_228");
         out.print("\n\n\n");
         
         

@@ -25,11 +25,16 @@ class AppTest {
     @Test void testSolver(){
         Solver solver = new Solver();
         LinearSystemTest tests[] = new LinearSystemTest[]{
-            new LinearSystemTest(LinearSystem.of(3, 
+            LinearSystemTest.of(LinearSystem.of(3, 
             1,2,1,8,
             2,1,2,10,
             3,3,1,12
         ) , new double[]{1,2,3}),
+        LinearSystemTest.of(LinearSystem.of(3, 
+            1,2,1,8,
+            2,1,2,10,
+            3,3,1,12
+        ) , 1,2,3),
             
         };
         for(LinearSystemTest test : tests){
