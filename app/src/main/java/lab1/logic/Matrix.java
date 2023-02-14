@@ -46,7 +46,7 @@ public class Matrix implements Cloneable{
     public double get(int x, int y) {
         return this.matrix[y][x];
     }
-
+/*
     public double getDeterminant(){
         double result = 0;
        
@@ -59,20 +59,8 @@ public class Matrix implements Cloneable{
 			return result;
 		}
 		for (int i = 0; i < getDimension(); i++) {
-			/*Matrix tempMatrix = new Matrix(getDimension()- 1);
-            double[][] temp = tempMatrix.getData();
-			for (int j = 1; j < getDimension(); j++) {
-				for (int k = 0; k < getDimension(); k++) {
 
-					if (k < i) {
-
-						temp[j - 1][k] = matrix[j][k];
-					} else if (k > i) {
-						temp[j - 1][k - 1] = matrix[j][k];
-					}
-				}
-			}*/
-			result += get(i,0) * getAlgAddition(i,0) ;//* Math.pow(-1,  i) * tempMatrix.getDeterminant();
+			result += get(i,0) * getAlgAddition(i,0) ;
 		}
 		return result;
     }
@@ -91,8 +79,7 @@ public class Matrix implements Cloneable{
         }
         return minor;
     }
-
-  
+*/
 
     public void swapElements(int x1, int y1, int x2, int y2) {
         double tmp = matrix[y1][x1];
@@ -103,6 +90,24 @@ public class Matrix implements Cloneable{
         double[] tmp = matrix[y1];
         matrix[y1] = matrix[y2];
         matrix[y2] = tmp;
+    }
+
+    public double multiplyDiagonal() {
+        double result = 1;
+        for (int i = 0; i < dimension; i++) {
+            result *= matrix[i][i];
+        }
+        return result;
+    }
+    public boolean hasZeroRaw(){
+        for (int i = 0; i < dimension; i++) {
+            boolean hasZero = true;
+            for (int j = 0; j < dimension; j++) {
+                if(matrix[i][j]!=0) hasZero = false;
+            }
+            if(hasZero) return true;
+        }
+        return false;
     }
     @Override
     public Matrix clone(){

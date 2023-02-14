@@ -40,6 +40,15 @@ public class Solver {
         solutionWay = new SolutionWay();
     }
 
+    public boolean checkSystem(){
+        for(int i=0; i<system.getDimension(); i++){
+            if(system.getCoefficients().get(i,i) == 0){
+                return false;
+            }
+        }
+        return true;
+    }
+
     
     private boolean chooseMainElementAndChangeRawsOrder(int i){
         double max = Math.abs(system.getCoefficients().get(i,i));
@@ -111,8 +120,10 @@ public class Solver {
         }
     }
     public void solve(){
+
         solutionWay = new SolutionWay();
         solution = new Vector(system.getDimension());
+
         int n = system.getDimension();
         int k=0;
 

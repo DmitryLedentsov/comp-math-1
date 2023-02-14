@@ -77,9 +77,27 @@ public class App {
   
     }
     void printSolution(){
+       
         out.print("Исходная система имеет вид: \n" + solver.getSystem() + "\n");
-        out.print("Детерминант: " + solver.getSystem().getCoefficients().getDeterminant() + "\n");
+
+        /*if(!solver.checkSystem()){
+            out.print("Есть нулевые коэффициенты в уравнении");
+            return;
+        }*/
         solver.solve();
+        /*if(solver.getSystem().getCoefficients().hasZeroRaw()){
+            out.print("Единственное решение не существует");
+            return;
+        }*/
+
+        double det = solver.getSystem().getCoefficients().multiplyDiagonal();
+        //double det2 = solver.getSystem().getCoefficients().getDeterminant();
+        out.print("Детерминант: " + det+ "\n");
+
+        if(det == 0){
+            out.print("Не выполняется условие существования единственного решения");
+            return;
+        }
         //out.print(solver.getSolutionWay().getDescription());
         out.print("Треугольная матрица: \n" + solver.getSystem() + "\n");
         //out.print("\nПуть решения: \n\n" + solver.getSolutionWay() + "\n");
@@ -113,7 +131,7 @@ public class App {
                 out.print("Ошибка при чтении файла " + path);
             }
             catch (IllegalArgumentException e) {
-                out.print("Данные в файле некорректны: " + path);
+                out.print("Данные в файле некорректны: " + e.getMessage());
             }
             catch (Exception e) {
                 out.print("Неизвестная ошибка");
