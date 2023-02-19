@@ -1,13 +1,12 @@
 package lab1.logic;
 
-import java.util.Scanner;
-
-import lab1.utils.DoubleFormatter;
-import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
 public class Solver {
-    @Getter 
+    @Getter  @Setter
     private LinearSystem system;
 
     @Getter
@@ -17,35 +16,6 @@ public class Solver {
 
     @Getter 
     private double determinant;
-
-    
-    Scanner scanner = new Scanner(System.in);
-    void init(){
-        
-    }
-    public Solver() {
-        scanner.useDelimiter("/n");
-    }
-
-    public Solver(LinearSystem s) {
-        setSystem(s);
-    }
-
-    public void setSystem(LinearSystem s) {
-        system = s;
-        errors = new Vector(s.getDimension());
-        solution = new Vector(s.getDimension());
-    }
-
-    public boolean checkSystem(){
-        for(int i=0; i<system.getDimension(); i++){
-            if(system.getCoefficients().get(i,i) == 0){
-                return false;
-            }
-        }
-        return true;
-    }
-
     
     private boolean chooseMainElementAndChangeRawsOrder(int i){
         double max = Math.abs(system.getCoefficients().get(i,i));
@@ -68,9 +38,7 @@ public class Solver {
     }
 
     private void subRaws(int i){
-        
-        for (int k = i + 1; k < system.getDimension(); k++)
-        {   
+        for (int k = i + 1; k < system.getDimension(); k++){   
             //начиная с iго элемента вычитаем из каждой строки iю строку * коэффициент
             double c = system.getCoefficients().get(i,k) / system.getCoefficients().get(i, i);
             for (int j = i; j < system.getDimension(); j++)
@@ -81,18 +49,13 @@ public class Solver {
 
         }
     }
-    
+
     void findSolution(){
         int n = system.getDimension();
-        /*
-         последовательно находим неизвестные начиная с последнего
-
-         */
-        for (int i = n - 1; i >= 0; i--)
-        {
+        //последовательно находим неизвестные начиная с последнего
+        for (int i = n - 1; i >= 0; i--){
             double s = 0;
-            for (int j = i + 1; j < system.getDimension(); j++)
-            {
+            for (int j = i + 1; j < system.getDimension(); j++){
                 s = s + system.getCoefficients().get(j,i) * solution.get(j);
             }
             solution.set(i, (system.getFreeMembers().get(i) - s) / system.getCoefficients().get(i, i));
@@ -110,31 +73,31 @@ public class Solver {
             errors.set(i, s - system.getFreeMembers().get(i));
         }
     }
-    void findDeterminant(int swapCount){
-        //(-1)^(число перестановок)*диагональ
-        determinant = Math.pow(-1, swapCount) * system.getCoefficients().multiplyDiagonal();
-    }
-    public void solve(){
-        solution = new Vector(system.getDimension());
-        errors = new Vector(system.getDimension());
-        int n = system.getDimension();
-
+    
+    public int triangularForm(){
         int swapCount = 0;
         //"Прямой ход", приводим к треугольному виду
-        for ( int i = 0; i < n-1; i++)
+        for ( int i = 0; i < system.getDimension()-1; i++)
         {
             //меняем строки местами
             if(chooseMainElementAndChangeRawsOrder(i)) swapCount ++;
             //вычитаем из следующих строк iю
             subRaws(i);
         }
-
+        return swapCount;
+    }
+    public void solve(){
+        solution = new Vector(system.getDimension());
+        errors = new Vector(system.getDimension());
+        int swapCount = triangularForm();
         findDeterminant(swapCount);
-        
         //"Обратный ход"
-
         findSolution();
         findErrors();
-        
+    }
+
+    void findDeterminant(int swapCount){
+        //(-1)^(число перестановок)*диагональ
+        determinant = Math.pow(-1, swapCount) * system.getCoefficients().multiplyDiagonal();
     }
 }
