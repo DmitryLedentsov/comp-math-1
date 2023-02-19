@@ -2,10 +2,7 @@ package lab1.io;
 
 import java.util.Scanner;
 
-import lab1.app.App;
 import lab1.logic.LinearSystem;
-import lab1.logic.Matrix;
-import lab1.logic.Vector;
 
 public class ConsoleInputManager extends InputManagerImpl{
     public ConsoleInputManager() {
@@ -19,7 +16,6 @@ public class ConsoleInputManager extends InputManagerImpl{
 
     public double[] readEquation(int d){
        
-        
         Question<double[]> q = new Question<double[]>("уравнение " + line + ": ", ()->super.readEquation(d));
         return q.getAnswer();
     }
@@ -32,7 +28,7 @@ public class ConsoleInputManager extends InputManagerImpl{
 
 
     public int readCommand() {
-        return new Question<>("\nОПЦИИ:\n\n -   чтобы ввести с клавиатуры введите 1, \n -   чтобы ввести из файла введите 2, \n -   чтобы выйти введите 3\n", super::readCommand).getAnswer();
+        return new Question<>("ОПЦИИ:\n\n -   чтобы ввести с клавиатуры введите 1, \n -   чтобы ввести из файла введите 2, \n -   чтобы выйти введите 3\n", super::readCommand).getAnswer();
     }
     public String readPath() {
         return new Question<>("Введите имя файла: ", super::readPath).getAnswer();

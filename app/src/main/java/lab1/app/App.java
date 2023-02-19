@@ -14,8 +14,8 @@ import lab1.io.FileInputManager;
 import lab1.io.InputManager;
 import lab1.io.OutputManager;
 import lab1.logic.LinearSystem;
-import lab1.logic.Matrix;
 import lab1.logic.Solver;
+import lab1.utils.DoubleFormatter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -60,7 +60,7 @@ public class App {
 
         print_dimka("by @dimka_228",50);
         //out.print("\t \t \t \t \t \t \tby @dimka_228");
-        out.print("\n\n\n");
+        out.print("\n");
         
         
     }
@@ -80,30 +80,22 @@ public class App {
        
         out.print("Исходная система имеет вид: \n" + solver.getSystem() + "\n");
 
-        /*if(!solver.checkSystem()){
-            out.print("Есть нулевые коэффициенты в уравнении");
-            return;
-        }*/
-        solver.solve();
-        /*if(solver.getSystem().getCoefficients().hasZeroRaw()){
-            out.print("Единственное решение не существует");
-            return;
-        }*/
 
-        double det = solver.getSystem().getCoefficients().multiplyDiagonal();
-        //double det2 = solver.getSystem().getCoefficients().getDeterminant();
-        out.print("Детерминант: " + det+ "\n");
+        solver.solve();
+        double det = solver.getDeterminant();
+        out.print("Детерминант: " + DoubleFormatter.format(det)+ "\n");
 
         if(det == 0){
             out.print("Не выполняется условие существования единственного решения");
             return;
         }
-        //out.print(solver.getSolutionWay().getDescription());
+       
         out.print("Треугольная матрица: \n" + solver.getSystem() + "\n");
-        //out.print("\nПуть решения: \n\n" + solver.getSolutionWay() + "\n");
+        
 
         out.print("Решение системы имеет вид: \n" + solver.getSolution() + "\n");
         out.print("Вектор невязок: \n" + solver.getErrors() + "\n");
+        
     }
 
     public void run(){
@@ -116,8 +108,7 @@ public class App {
         if(cmd == 1) {
             LinearSystem system = in.readLinearSystem();
             solver.setSystem(system);
-            printSolution();
-            
+            printSolution();  
         }
         else if(cmd == 2) {
             String path = in.readPath();
@@ -126,21 +117,15 @@ public class App {
                 solver.setSystem(system);
                 printSolution();
             } catch(FileNotFoundException e) {
-                out.print("Файл "+ path + " не найден");
+                out.error("Файл "+ path + " не найден");
             } catch (IOException e) {
-                out.print("Ошибка при чтении файла " + path);
+                out.error("Ошибка при чтении файла " + path);
+            } catch (IllegalArgumentException e) {
+                out.error("Данные в файле некорректны: " + e.getMessage());
+            } catch (Exception e) {
+                out.error("Неизвестная ошибка");
             }
-            catch (IllegalArgumentException e) {
-                out.print("Данные в файле некорректны: " + e.getMessage());
-            }
-            catch (Exception e) {
-                out.print("Неизвестная ошибка");
-            }
-
-        }
-        
-   
-        
+        }  
     }
 
     public void stop(){

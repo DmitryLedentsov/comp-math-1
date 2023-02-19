@@ -1,9 +1,6 @@
 package lab1.io;
 
-import java.io.InputStream;
-
 import lab1.logic.LinearSystem;
-import lab1.logic.Vector;
 
 public interface InputManager extends AutoCloseable{
 

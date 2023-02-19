@@ -5,7 +5,6 @@ package lab1;
 
 import org.junit.jupiter.api.Test;
 
-import lab1.app.App;
 import lab1.logic.LinearSystem;
 import lab1.logic.Solver;
 
@@ -17,7 +16,6 @@ import org.junit.jupiter.api.DisplayName;
 class AppTest {
     @DisplayName("test app has a greeting")
     @Test void appHasAGreeting() {
-        App classUnderTest = App.getInstanse();
         
         //assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
         
@@ -25,16 +23,13 @@ class AppTest {
     @Test void testSolver(){
         Solver solver = new Solver();
         LinearSystemTest tests[] = new LinearSystemTest[]{
+           
             LinearSystemTest.of(LinearSystem.of(3, 
-            1,2,1,8,
-            2,1,2,10,
-            3,3,1,12
-        ) , new double[]{1,2,3}),
-        LinearSystemTest.of(LinearSystem.of(3, 
-            1,2,1,8,
-            2,1,2,10,
-            3,3,1,12
-        ) , 1,2,3),
+                1,2,1,8,
+                2,1,2,10,
+                3,3,1,12
+            ) , 1,2,3),
+        
             
         };
         for(LinearSystemTest test : tests){

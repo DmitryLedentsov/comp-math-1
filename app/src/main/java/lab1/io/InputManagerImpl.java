@@ -1,9 +1,7 @@
 package lab1.io;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
-import lab1.app.App;
 import lab1.logic.LinearSystem;
 import lab1.logic.Matrix;
 import lab1.logic.Vector;
@@ -55,9 +53,9 @@ public class InputManagerImpl implements InputManager{
         }
         double[] equation = new double[input.length];
         for (int i = 0; i < input.length; i++) {
-        
+            String s = input[i];//.replace(',', '.');
             try{
-            equation[i] = Double.parseDouble(input[i]);
+                equation[i] = Double.parseDouble(s);
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Неверный формат элемента уравнения " + input[i]);
             }
