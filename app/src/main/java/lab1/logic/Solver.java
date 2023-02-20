@@ -14,7 +14,7 @@ public class Solver {
     @Getter
     private Vector errors;
 
-    @Getter 
+
     private double determinant;
     
     private boolean chooseMainElementAndChangeRawsOrder(int i){
@@ -87,6 +87,7 @@ public class Solver {
         return swapCount;
     }
     public void solve(){
+        determinant = 0;
         solution = new Vector(system.getDimension());
         errors = new Vector(system.getDimension());
         int swapCount = triangularForm();
@@ -96,8 +97,15 @@ public class Solver {
         findErrors();
     }
 
-    void findDeterminant(int swapCount){
+    void findDeterminant(int swaps){
+        double r =  system.getCoefficients().multiplyDiagonal();
         //(-1)^(число перестановок)*диагональ
-        determinant = Math.pow(-1, swapCount) * system.getCoefficients().multiplyDiagonal();
+        if(swaps>0) determinant = Math.pow(-1, swaps)*r;
+        else determinant = r;
+        
+        
+    }
+    public double getDeterminant(){
+        return determinant;
     }
 }

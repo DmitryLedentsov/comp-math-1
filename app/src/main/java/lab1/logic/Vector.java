@@ -47,7 +47,8 @@ public class Vector implements Cloneable{
     public String toString() {
         String s = "";
         for (int i = 0; i < dimension; i++) {
-            s += DoubleFormatter.format(vector[i]) + "\t";
+            //s += DoubleFormatter.format(vector[i]) + "\t";
+            s += vector[i] + "\t";
         }
         return s;
     }
